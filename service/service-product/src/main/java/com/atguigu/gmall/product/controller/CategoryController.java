@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.controller;
 import com.atguigu.gmall.common.result.Result;
 import com.atguigu.gmall.model.product.BaseCategory1;
 import com.atguigu.gmall.model.product.BaseCategory2;
+import com.atguigu.gmall.model.product.BaseCategory3;
 import com.atguigu.gmall.product.service.BaseCategory1Service;
 import com.atguigu.gmall.product.service.BaseCategory2Service;
 import com.atguigu.gmall.product.service.BaseCategory3Service;
@@ -60,6 +61,17 @@ public class CategoryController {
         //查询 父分类id是c1Id 的所有二级分类
         List<BaseCategory2> category2s = baseCategory2Service.getCategory1Child(c1Id);
         return Result.ok(category2s);
+    }
+    /**
+     * 获取某个二级分类下的所有三级分类
+     * @param c2Id 传入一个二级分类id
+     */
+    //http://192.168.6.1/admin/product/getCategory3/9
+    @GetMapping("/getCategory3/{c2Id}")
+    public Result getCategory3(@PathVariable("c2Id")Long c2Id){
+        //查询 父分类id是c1Id 的所有二级分类
+        List<BaseCategory3> category3s = baseCategory3Service.getCategory2Child(c2Id);
+        return Result.ok(category3s);
     }
 
 }
