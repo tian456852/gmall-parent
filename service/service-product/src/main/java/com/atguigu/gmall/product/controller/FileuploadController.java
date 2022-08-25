@@ -1,16 +1,33 @@
 package com.atguigu.gmall.product.controller;
 
 import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.product.service.FileUploadService;
+import io.minio.MinioClient;
+import io.minio.errors.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 /**
  * @author tkwrite
  * @create 2022-08-24-11:32
  */
+@Api(tags = "文件上传控制器")
 @RequestMapping("/admin/product")
 @RestController
 public class FileuploadController {
+
+    @Autowired
+    FileUploadService fileUploadService;
+
     /**
      * 文件上传功能
      * 1.前端把文件流放到哪里了？该怎么拿
@@ -30,10 +47,10 @@ public class FileuploadController {
      *
      * @return
      */
+    @ApiOperation(value = "文件上传")
     @PostMapping("/fileUpload")
-    public Result fileUpload(@RequestParam("file")MultipartFile file){
-
-        return Result.ok();
+    public Result fileUpload(@RequestParam("file")MultipartFile file) throws Exception {
+        String url=fileUploadService.upload(file);
+        return Result.ok(url);
     }
-
 }

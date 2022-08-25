@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * @author tkwrite
  * @create 2022-08-24-10:12
@@ -72,5 +74,12 @@ public class BaseTrademarkController {
     public Result updateBaseTrademark(@RequestBody BaseTrademark trademark){
         baseTrademarkService.updateById(trademark);
         return  Result.ok();
+    }
+
+//    /admin/product/baseTrademark/getTrademarkList
+    @GetMapping("/baseTrademark/getTrademarkList")
+    public Result getTrademarkList(){
+        List<BaseTrademark> list = baseTrademarkService.list();
+        return Result.ok(list);
     }
 }

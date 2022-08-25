@@ -23,3 +23,4 @@ spring:
             allowedMethods: "*" #允许所有请求方式跨域
             allowedHeaders: "*" #复杂跨域的原因就是因为带来一些复杂的请求头导致，
             allowCredentials: true #允许带一些安全标致跨域 比如：Cookie
+
