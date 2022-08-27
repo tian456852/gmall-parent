@@ -16,6 +16,10 @@ spring:
           uri: lb://service-product
           predicates: #断言
             - Path=/admin/product/**
+        - id: web_all_route
+          uri: lb://web-all
+          predicates: #断言
+            - Host=**.gmall.com
       globalcors:
         cors-configurations:
           '[/**]': #只要有人处理请求了，这个跨域就能生效
