@@ -3,6 +3,7 @@ package com.atguigu.gmall.product.service.impl;
 import com.atguigu.gmall.model.product.*;
 import com.atguigu.gmall.model.to.CategoryViewTo;
 import com.atguigu.gmall.model.to.SkuDetailTo;
+import com.atguigu.gmall.model.to.ValueSkuJsonTo;
 import com.atguigu.gmall.product.mapper.BaseCategory3Mapper;
 import com.atguigu.gmall.product.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -76,6 +77,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         //    TODO 2.给es中保存商品
     }
 
+    @Deprecated
     @Override
     public SkuDetailTo getSkuDetail(Long skuId) {
         SkuDetailTo detailTo = new SkuDetailTo();
@@ -103,7 +105,13 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
         List<SpuSaleAttr> saleAttrList=spuSaleAttrService
                 .getSaleAttrAndValueMarkSku(skuInfo.getSpuId(),skuId);
         detailTo.setSpuSaleAttrList(saleAttrList);
+        //5.商品（sku）的所有兄弟产品的销售属性名和值组合关系全部查出来并封装成
+        //{"118|120":"50","110|121":"51"}这样的json组合
+        Long spuId=skuInfo.getSpuId();
+        String valueJson=spuSaleAttrService.getAllSkuSaleAttrValueJson(spuId);
+        detailTo.setValuesSkuJson(valueJson);
 
+        //以下省略不做
         //5、商品（sku）类似推荐    （x）
         //6、商品（sku）介绍[所属的spu的海报]        spu_poster（x）
         //7、商品（sku）的规格参数                  sku_attr_value
@@ -116,6 +124,18 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoMapper, SkuInfo>
     public BigDecimal get1010Price(Long skuId) {
         BigDecimal price=skuInfoMapper.getRealPrice(skuId);
         return price;
+    }
+
+    @Override
+    public SkuInfo getDetailInfo(Long skuId) {
+        SkuInfo skuInfo=skuInfoMapper.selectById(skuId);
+        return skuInfo;
+    }
+
+    @Override
+    public List<SkuImage> getDetailImages(Long skuId) {
+        List<SkuImage> imageList = skuImageService.getSkuImage(skuId);
+        return imageList;
     }
 
 

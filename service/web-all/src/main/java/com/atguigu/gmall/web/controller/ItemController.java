@@ -31,7 +31,6 @@ public class ItemController {
         model.addAttribute("price",skuDetailTo.getPrice());
         model.addAttribute("spuSaleAttrList",skuDetailTo.getSpuSaleAttrList());//spu的销售属性列表
         model.addAttribute("valuesSkuJson",skuDetailTo.getValuesSkuJson());//json
-
         }
         return "item/index";
     }
