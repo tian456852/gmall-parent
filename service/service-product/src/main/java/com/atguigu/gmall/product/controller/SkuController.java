@@ -22,6 +22,7 @@ public class SkuController {
 
     @Autowired
     SkuInfoService skuInfoService;
+
 //    /admin/product/list/1/10
     @GetMapping("/list/{page}/{size}")
     public Result getSkuList(

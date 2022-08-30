@@ -36,5 +36,8 @@
             <artifactId>guava</artifactId>
             <version>31.1-jre</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
+
+
     </dependencies>
 </project>
