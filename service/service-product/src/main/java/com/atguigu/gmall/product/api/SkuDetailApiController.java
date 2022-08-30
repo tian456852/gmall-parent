@@ -115,6 +115,4 @@ public class SkuDetailApiController {
         CategoryViewTo categoryViewTo= baseCategory3Service.getCategoryView(c3Id);
         return Result.ok(categoryViewTo);
     }
-
-
 }
