@@ -29,8 +29,6 @@ public class IndexController {
             List<CategoryTreeTo> data = result.getData();
             model.addAttribute("list",data);
         }
-
-
         //classpath:/templates/+index/index+.html
         return "index/index";//页面逻辑视图
     }

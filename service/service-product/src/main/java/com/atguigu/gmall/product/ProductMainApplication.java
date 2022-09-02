@@ -1,11 +1,13 @@
 package com.atguigu.gmall.product;
 
+import com.atguigu.gmall.common.annotation.EnableThreadPool;
 import com.atguigu.gmall.common.config.RedissonAutoConfiguration;
 import com.atguigu.gmall.common.config.Swagger2Config;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.context.annotation.Import;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
@@ -22,9 +24,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *  2、批量导入： @SpringBootApplication(scanBasePackages = "com.atguigu.gmall")
  *  3、精准导入：@Import({Swagger2Config.class})
  */
-
-@EnableTransactionManagement //开启注解的事务
-@Import({Swagger2Config.class,RedissonAutoConfiguration.class})
+@EnableScheduling
+// @EnableTransactionManagement //开启注解的事务
+// @EnableThreadPool
+@Import({Swagger2Config.class})
 @SpringCloudApplication
 @MapperScan(basePackages = "com.atguigu.gmall.product.mapper")
 public class ProductMainApplication {

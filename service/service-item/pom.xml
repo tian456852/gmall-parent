@@ -36,8 +36,16 @@
             <artifactId>guava</artifactId>
             <version>31.1-jre</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>com.atguigu.gmall</groupId>
+            <artifactId>mall-cache-starter</artifactId>
+            <version>1.0</version>
+        </dependency>
 
     </dependencies>
 </project>
