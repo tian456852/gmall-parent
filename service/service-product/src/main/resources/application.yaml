@@ -2,6 +2,11 @@ server:
   port: 7000
 #数据源配置好
 spring:
+  profiles:
+    include: sharding  #包含的文件不用区分激活的profile
+    #  profiles:
+  #    active: sharding,dev  #主文件 application.yaml 和激活的 application-{profile}.yaml 同时生效
+
   zipkin:
     base-url: http://192.168.6.66:9411/
     sender:

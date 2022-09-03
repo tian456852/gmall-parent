@@ -13,5 +13,6 @@ public class SysRedisConst {
     public static final String SKU_INFO_PREFIX = "sku:info:";
 
     public static final String BLOOM_SKUID = "bloom:skuid";
+    // public static final String CACHE_CATEGORYS = "categorys";
     public static final String CACHE_CATEGORYS = "categorys";
 }

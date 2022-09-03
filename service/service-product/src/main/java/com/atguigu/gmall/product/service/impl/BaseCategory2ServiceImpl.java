@@ -40,7 +40,7 @@ public class BaseCategory2ServiceImpl extends ServiceImpl<BaseCategory2Mapper, B
         return list;
     }
 
-    // @GmallCache(cacheKey = SysRedisConst.CACHE_CATEGORYS)
+    @GmallCache(cacheKey = SysRedisConst.CACHE_CATEGORYS)
     @Override
     public List<CategoryTreeTo> getAllCategoryWithTree() {
 
