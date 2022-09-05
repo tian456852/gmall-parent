@@ -6,6 +6,7 @@ import com.atguigu.gmall.common.config.Swagger2Config;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  *  2、批量导入： @SpringBootApplication(scanBasePackages = "com.atguigu.gmall")
  *  3、精准导入：@Import({Swagger2Config.class})
  */
+@EnableFeignClients(basePackages = "com.atguigu.gmall.feign.search")
 @EnableScheduling
 // @EnableTransactionManagement //开启注解的事务
 // @EnableThreadPool

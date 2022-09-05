@@ -12,7 +12,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author tkwrite
  * @create 2022-08-26-9:15
  */
-@EnableFeignClients(basePackages = {"com.atguigu.gmall.feign.product","com.atguigu.gmall.feign.item"})
+@EnableFeignClients(basePackages = {"com.atguigu.gmall.feign.product","com.atguigu.gmall.feign.item","com.atguigu.gmall.feign.search"})
  @SpringCloudApplication
 //     @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //     @EnableDiscoveryClient

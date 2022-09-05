@@ -66,6 +66,6 @@ public class Goods {
     // 平台属性集合对象
     // Nested 支持嵌套查询
     @Field(type = FieldType.Nested)
-    private List<SearchAttr> attrs;
+    private List<SearchAttr> attrs;//平台属性
 
 }

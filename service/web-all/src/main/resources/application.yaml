@@ -12,3 +12,11 @@ spring:
     base-url: http://192.168.6.66:9411/
     sender:
       type: web
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000
+        readTimeout: 5000
+        retryer: com.atguigu.gmall.common.retry.MyRetryer
+#        如果第一次请求超时，没有得到数据会再次重发一次。重发两次
