@@ -5,6 +5,7 @@ import com.atguigu.gmall.model.list.Goods;
 import com.atguigu.gmall.model.vo.search.SearchParamVo;
 import com.atguigu.gmall.model.vo.search.SearchResponseVo;
 import com.atguigu.gmall.search.service.GoodsService;
+import com.sun.org.apache.bcel.internal.generic.ARETURN;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,10 +42,22 @@ public class SearchApiController {
      */
     @PostMapping("/goods/search")
     public Result<SearchResponseVo> search(@RequestBody SearchParamVo searchParamVo){
-
-
         //TODO 检索
         SearchResponseVo responseVo=goodsService.search(searchParamVo);
         return Result.ok(responseVo);
+    }
+
+    /**
+     * 增加热度分
+     * @param skuId
+     * @param score 商品最新得分
+     * @return
+     */
+    @GetMapping("/goods/hotscore/{skuId}")
+    public Result updateHotScore(@PathVariable("skuId")Long skuId,
+                                 @RequestParam("score") Long score){
+        goodsService.updateHotScore(skuId,score);
+        return Result.ok();
+
     }
 }

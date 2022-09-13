@@ -6,6 +6,7 @@ import com.atguigu.gmall.common.util.Jsons;
 
 
 import com.atguigu.gmall.feign.product.SkuDetailFeignClient;
+import com.atguigu.gmall.feign.search.SearchFeignClien;
 import com.atguigu.gmall.item.service.SkuDetailService;
 import com.atguigu.gmall.model.product.SkuImage;
 import com.atguigu.gmall.model.product.SkuInfo;
@@ -38,6 +39,9 @@ public class SkuDetailServiceImpl implements SkuDetailService {
 
     @Autowired
     StringRedisTemplate redisTemplate;
+
+    @Autowired
+    SearchFeignClien searchFeignClien;
 
     //每个skuId，关联一把自己的锁
     Map<Long,ReentrantLock> lockPool = new ConcurrentHashMap<>();
@@ -163,6 +167,18 @@ public class SkuDetailServiceImpl implements SkuDetailService {
         SkuDetailTo fromRpc = getSkuDetailFromRpc(skuId);
 
         return fromRpc;
+    }
+
+    @Override
+    public void updateHotScore(Long skuId) {
+        //redis统计得分
+        Long increment = redisTemplate.opsForValue()
+                .increment(SysRedisConst.SKU_HOTSCORE_PREFIX + skuId);
+        if (increment % 100==0){
+        //    累计到一定量更新es
+        searchFeignClien.updateHotScore(skuId,increment);
+        }
+
     }
 
 

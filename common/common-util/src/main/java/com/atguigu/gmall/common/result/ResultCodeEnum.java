@@ -14,7 +14,7 @@ public enum ResultCodeEnum {
     SERVICE_ERROR(2012, "服务异常"),
 
     PAY_RUN(205, "支付中"),
-
+    LOGIN_ERROR(207, "账号或密码错误"),
     LOGIN_AUTH(208, "未登陆"),
     PERMISSION(209, "没有权限"),
     SECKILL_NO_START(210, "秒杀还没开始"),
@@ -28,7 +28,11 @@ public enum ResultCodeEnum {
     SECKILL_ORDER_SUCCESS(218, "下单成功"),
     COUPON_GET(220, "优惠券已经领取"),
     COUPON_LIMIT_GET(221, "优惠券已发放完毕"),
+    CART_OVERFLOW(300,"购物车中商品超限，请移除部分商品，再添加"),
+    CART_ITEM_SKUNUM_OVERFLOW(301,"单个商品不允许超过200，请重新操作")
     ;
+
+
 
     private Integer code;
 

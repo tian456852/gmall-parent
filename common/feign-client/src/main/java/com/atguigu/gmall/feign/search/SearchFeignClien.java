@@ -18,9 +18,12 @@ public interface SearchFeignClien {
     @PostMapping("/goods")
      Result saveGoods(@RequestBody Goods goods);
 
-    @DeleteMapping("/delete/{skuId}")
+    @DeleteMapping("/goods/{skuId}")
      Result deleteGoods(@PathVariable("skuId") Long skuId);
 
     @PostMapping("/goods/search")
      Result<SearchResponseVo> search(@RequestBody SearchParamVo searchParamVo);
+
+    @GetMapping("/goods/hotscore/{skuId}")
+    public Result updateHotScore(@PathVariable("skuId")Long skuId,@RequestParam("score") Long score);
 }

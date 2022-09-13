@@ -1,5 +1,6 @@
 package com.atguigu.gmall.web;
 
+import com.atguigu.gmall.common.annotation.EnableAutoFeignInterceptor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -12,7 +13,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  * @author tkwrite
  * @create 2022-08-26-9:15
  */
-@EnableFeignClients(basePackages = {"com.atguigu.gmall.feign.product","com.atguigu.gmall.feign.item","com.atguigu.gmall.feign.search"})
+@EnableAutoFeignInterceptor
+@EnableFeignClients(basePackages = {
+        "com.atguigu.gmall.feign.product",
+        "com.atguigu.gmall.feign.item",
+        "com.atguigu.gmall.feign.search",
+        "com.atguigu.gmall.feign.cart"
+})
  @SpringCloudApplication
 //     @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 //     @EnableDiscoveryClient

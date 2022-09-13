@@ -16,4 +16,12 @@ public class SysRedisConst {
     // public static final String CACHE_CATEGORYS = "categorys";
     public static final String CACHE_CATEGORYS = "categorys";
     public static final int SEARCH_PAGE_SIZE = 10;
+    public static final String SKU_HOTSCORE_PREFIX = "sku:hotscore:";
+    public static final String LOGIN_USER = "user:login:";
+    public static final String USERID_HEADER = "userid";
+    public static final String USERTEMPID_HEADER = "usertempid";
+    public static final String CART_KEY = "cart:user:";//用户id或者临时id
+    public static final long CART_ITEMS_LIMIT = 200;
+    public static final long CART_ITEM_LIMIT = 200;
+
 }

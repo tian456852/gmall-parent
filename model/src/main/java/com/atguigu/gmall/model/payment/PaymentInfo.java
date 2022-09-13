@@ -65,5 +65,9 @@ public class PaymentInfo extends BaseEntity {
 	@TableField("callback_content")
 	private String callbackContent;
 
+    @ApiModelProperty(value = "user_id")
+    @TableField("user_id")
+    private Long userId;
+
 }
 
