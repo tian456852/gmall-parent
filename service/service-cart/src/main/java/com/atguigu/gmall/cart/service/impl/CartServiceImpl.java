@@ -148,7 +148,7 @@ public class CartServiceImpl implements CartService {
         //2.绑定请求到这个线程
         executor.submit(()->{
             RequestContextHolder.setRequestAttributes(requestAttributes);
-            updateCartAllItemPrice(cartKey,infos);
+            updateCartAllItemPrice(cartKey);
         //    3.移除数据
             RequestContextHolder.resetRequestAttributes();
         });
@@ -249,17 +249,23 @@ public class CartServiceImpl implements CartService {
 
         }
 
+    //如果传入了 要更新的List，会导致延迟更新问题
     @Override
-    public void updateCartAllItemPrice(String cartKey,List<CartInfo>cartInfos) {
+    public void updateCartAllItemPrice(String cartKey) {
         BoundHashOperations<String, String, String> hashOps = redisTemplate.boundHashOps(cartKey);
-        cartInfos.stream()
-                .forEach(cartInfo ->{
+        hashOps.values().stream().map(str->
+            Jsons.toObj(str,CartInfo.class)
+        ).forEach(cartInfo -> {
             //    1.查出最新价格
             Result<BigDecimal> price = skuFeignClient.getSku1010price(cartInfo.getSkuId());
             //    2.设置新价格
             cartInfo.setSkuPrice(price.getData());
             cartInfo.setUpdateTime(new Date());
+            //3、更新购物车价格  5ms。给购物车存数据之前再做一个校验。
+            //100%防得住
+            if(hashOps.hasKey(cartInfo.getSkuId().toString())){
             hashOps.put(cartInfo.getSkuId().toString(),Jsons.toStr(cartInfo));
+            }
 
         });
     }

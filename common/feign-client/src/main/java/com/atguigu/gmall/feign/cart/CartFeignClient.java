@@ -1,11 +1,14 @@
 package com.atguigu.gmall.feign.cart;
 
 import com.atguigu.gmall.common.result.Result;
+import com.atguigu.gmall.model.cart.CartInfo;
 import com.atguigu.gmall.model.product.SkuInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @author tkwrite
@@ -33,5 +36,12 @@ public interface CartFeignClient {
     Result<Object> addToCart(
             @RequestParam("skuId")Long skuId,
             @RequestParam("num")Integer num);
+
+    /**
+     * 获取购物车选中的所有商品
+     * @return
+     */
+    @GetMapping("/checked/list")
+    Result<List<CartInfo>>getChecked();
 
 }
