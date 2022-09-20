@@ -7,10 +7,12 @@ public enum ProcessStatus {
     WAITING_DELEVER("待发货", OrderStatus.WAITING_DELEVER),
     STOCK_EXCEPTION("库存异常", OrderStatus.PAID),
     DELEVERED("已发货", OrderStatus.DELEVERED),
+    STOCK_OVER_EXCEPTION("超出库存异常", OrderStatus.WAITING_SCHEDULE),
     CLOSED("已关闭", OrderStatus.CLOSED),
     FINISHED("已完结", OrderStatus.FINISHED) ,
     PAY_FAIL("支付失败", OrderStatus.UNPAID),
     SPLIT("订单已拆分", OrderStatus.SPLIT);
+
 
     private String comment ;
     private OrderStatus orderStatus;

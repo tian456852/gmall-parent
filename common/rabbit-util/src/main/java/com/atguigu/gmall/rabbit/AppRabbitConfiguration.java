@@ -1,14 +1,20 @@
 package com.atguigu.gmall.rabbit;
 
+import com.atguigu.gmall.serviec.RabbitService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.amqp.RabbitTemplateConfigurer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.retry.support.RetryTemplate;
 
 /**
@@ -17,6 +23,7 @@ import org.springframework.retry.support.RetryTemplate;
  */
 @EnableRabbit
 @Configuration
+@AutoConfigureAfter(RedisAutoConfiguration.class)
 @Slf4j
 public class AppRabbitConfiguration {
 
@@ -56,5 +63,11 @@ public class AppRabbitConfiguration {
 //        template.convertAndSend("xxx","sss","aa",data);
         return template;
     }
+    // @ConditionalOnBean(StringRedisTemplate.class)  //容器中有redis才需要再加入 rabbitService
+    @Bean
+    RabbitService rabbitService(){
+        return new RabbitService();
+    }
+
 
 }

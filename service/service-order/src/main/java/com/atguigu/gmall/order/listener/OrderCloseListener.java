@@ -5,6 +5,7 @@ import com.atguigu.gmall.common.util.Jsons;
 import com.atguigu.gmall.constant.MqConst;
 import com.atguigu.gmall.model.to.mq.OrderMsg;
 import com.atguigu.gmall.order.biz.OrderBizService;
+import com.atguigu.gmall.serviec.RabbitService;
 import com.rabbitmq.client.Channel;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +35,14 @@ public class OrderCloseListener {
     StringRedisTemplate redisTemplate;
     @Autowired
     OrderBizService orderBizService;
+    @Autowired
+    RabbitService rabbitService;
+    //构造器注入
+    // public OrderCloseListener(StringRedisTemplate redisTemplate, OrderBizService orderBizService, RabbitService rabbitService) {
+    //     this.redisTemplate = redisTemplate;
+    //     this.orderBizService = orderBizService;
+    //     this.rabbitService = rabbitService;
+    // }
 
     @RabbitListener(queues = MqConst.QUEUE_ORDER_DEAD)
     public void orderClose(Message message, Channel channel) throws IOException {
@@ -48,28 +57,10 @@ public class OrderCloseListener {
             channel.basicAck(tag,false);
         }catch (Exception e){
             log.error("订单业务关闭失败。消息{},失败原因{}",orderMsg,e);
+            String uniqKey=SysRedisConst.MQ_RETRY + "order:" + orderMsg.getOrderId();
             //可以加lua脚本
-            Long aLong = redisTemplate.opsForValue().increment(SysRedisConst.MQ_RETRY + "order:" + orderMsg.getOrderId());
-            if (aLong<=10){
-            channel.basicNack(tag,false,true);
-
-            }else {
-                channel.basicNack(tag,false,false);
-                redisTemplate.delete(SysRedisConst.MQ_RETRY+"order:" + orderMsg.getOrderId());
-            }
+            rabbitService.retryConsumMsg(10L,uniqKey,tag,channel);
         }
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
